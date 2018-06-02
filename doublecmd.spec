@@ -2,7 +2,7 @@
 %global help_version 0.6.0
 
 Name:           doublecmd
-Version:        0.8.0
+Version:        0.8.2
 Release:        1%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
@@ -11,6 +11,7 @@ URL:            http://doublecmd.sourceforge.net
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-src.tar.gz
 Source1:        http://downloads.sourceforge.net/project/doublecmd/Double%20Commander%20Source/%{name}-help-%{help_version}-src.tar.gz
 Source2:        %{name}-qt.desktop
+Patch0:         doublecmd-0.8.2-fix-lazarus-1.8.1-ScaleFontsPPI.patch
 
 BuildRequires:  fpc >= 2.6.0
 BuildRequires:  fpc-src
@@ -73,7 +74,7 @@ Summary:        Common files for Double Commander
 Common files for Double Commander GTK2 and Qt.
 
 %prep
-%autosetup
+%autosetup -p1
 chmod +x install/linux/install-help.sh
 tar -xvf %{SOURCE1}
 mv %{name}-help-%{help_version}/* doc/
@@ -131,6 +132,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/doc
 
 %changelog
+* Sun Jun 03 2018 Jajauma's Packages <jajauma@yandex.ru> - 0.8.2-1
+- Update to 0.8.2
+- Fix building on lazarus >= 1.8.1
+
 * Thu Dec 14 2017 Vasiliy N. Glazov <vascom2@gmail.com> 0.8.0-1
 - Update to 0.8.0
 
