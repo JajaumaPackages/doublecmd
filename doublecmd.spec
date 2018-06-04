@@ -2,7 +2,7 @@
 %global help_version 0.6.0
 
 Name:           doublecmd
-Version:        0.8.2
+Version:        0.8.3
 Release:        1%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
@@ -11,7 +11,6 @@ URL:            http://doublecmd.sourceforge.net
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-src.tar.gz
 Source1:        http://downloads.sourceforge.net/project/doublecmd/Double%20Commander%20Source/%{name}-help-%{help_version}-src.tar.gz
 Source2:        %{name}-qt.desktop
-Patch0:         doublecmd-0.8.2-fix-lazarus-1.8.1-ScaleFontsPPI.patch
 
 BuildRequires:  fpc >= 2.6.0
 BuildRequires:  fpc-src
@@ -69,12 +68,13 @@ It is inspired by Total Commander and features some new ideas.
 
 %package        common
 Summary:        Common files for Double Commander
+Requires:       polkit
 
 %description    common
 Common files for Double Commander GTK2 and Qt.
 
 %prep
-%autosetup -p1
+%autosetup
 chmod +x install/linux/install-help.sh
 tar -xvf %{SOURCE1}
 mv %{name}-help-%{help_version}/* doc/
@@ -124,6 +124,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %exclude %{_bindir}/%{name}-qt
 %{_libdir}/%{name}
 %{_datadir}/%{name}
+%{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 %{_mandir}/man1/%{name}.1.gz
 %{_datadir}/pixmaps/%{name}.*
 %{_datadir}/icons/hicolor/scalable/apps/doublecmd.svg
@@ -132,6 +133,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/doc
 
 %changelog
+* Mon Jun 04 2018 Jajauma's Packages <jajauma@yandex.ru> - 0.8.3-1
+- Update to 0.8.3
+
 * Sun Jun 03 2018 Jajauma's Packages <jajauma@yandex.ru> - 0.8.2-1
 - Update to 0.8.2
 - Fix building on lazarus >= 1.8.1
